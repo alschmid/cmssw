@@ -612,14 +612,31 @@ inline int HitPattern::numberOfValidMuonHits() const {
 }
 
 inline int HitPattern::numberOfValidPixelHits() const {
-  return countTypedHits(validHitFilter, pixelHitFilter);
+  return numberOfValidPixelBarrelHits() + numberOfValidPixelEndcapHits();
 }
 
 inline int HitPattern::numberOfValidPixelBarrelHits() const {
-  return countTypedHits(validHitFilter, pixelBarrelHitFilter);
+    int count = 0;
+      for (int i=0; i<(PatternSize * 32) / HitSize; i++) {
+	uint32_t pattern = getHitPattern(i);
+	if (pattern == 0) break;
+	if ( pixelBarrelHitFilter(pattern) )
+	  if( getLayer(pattern) <= 4 ) ++count;
+      }
+      return count;
 }
 
 inline int HitPattern::numberOfValidPixelEndcapHits() const {
+    int count = 0;
+      for (int i=0; i<(PatternSize * 32) / HitSize; i++) {
+	uint32_t pattern = getHitPattern(i);
+	if (pattern == 0) break;
+	if ( pixelEndcapHitFilter(pattern) )
+	  if( getLayer(pattern) <= 3 ) ++count;
+      }
+      return count;
+
+
   return countTypedHits(validHitFilter, pixelEndcapHitFilter);
 }
 
