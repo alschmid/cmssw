@@ -635,9 +635,6 @@ inline int HitPattern::numberOfValidPixelEndcapHits() const {
 	  if( getLayer(pattern) <= 3 ) ++count;
       }
       return count;
-
-
-  return countTypedHits(validHitFilter, pixelEndcapHitFilter);
 }
 
 inline int HitPattern::numberOfValidStripHits() const {
