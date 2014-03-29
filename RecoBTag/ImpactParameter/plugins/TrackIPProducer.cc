@@ -174,7 +174,7 @@ TrackIPProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
        if (track.pt() > m_cutMinPt &&
            track.hitPattern().numberOfValidHits() >= m_cutTotalHits &&         // min num tracker hits
 	   (trackSelector.countPixelBarrelHits(track.hitPattern()) +
-	    trackSelector.countPixelEndcapHits(track.hitPattern()) >= m_cutPixelHits) &&
+	    trackSelector.countPixelEndcapHits(track.hitPattern()) >= (unsigned int)m_cutPixelHits) &&
 	   //           track.hitPattern().numberOfValidPixelHits() >= m_cutPixelHits &&
            track.normalizedChi2() < m_cutMaxChiSquared &&
            std::abs(track.dxy(pv->position())) < m_cutMaxTIP &&
